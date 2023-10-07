@@ -8,10 +8,13 @@ import Form from './components/form';
 import Word from './components/Word'
 import Timer from './components/Timer'
 import { Button } from 'bootstrap';
+import './App.css'
+import Graph from './components/Graph';
 
 
 
 const API_BASE = "http://localhost:5001"
+
 
 // function Word(props) {
 //   const { text, active } = props
@@ -33,16 +36,45 @@ function App() {
   const[correctWordArray, setCorrectWordArray] = useState([]);
   //for timer
   const[startCounting, setStartCounting] = useState(false);
+  //wpm states
+  const[stats, setStats] = useState([80, 90, 90, 100, 40, 30, 100]);
 
+  let data = {
+    // labels,
+    datasets: [
+      {
+        label: 'Average WPM',
+        data: [70, 50, 30, 40, 80, 90],
+        borderColor: 'rgb(255, 99, 132)',
+        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+      },
+    ],
+  };
 
   useEffect(() => {
       getTexts(); 
+      getWPM();
       const index = (Math.floor(Math.random() * (text.length))); //to generate a random index
       setCurrentText(text[index].text.split(' '))
       console.log(text);   
       console.log(currentText); 
 
   }, []); //on mount 
+
+  const getWPM = () => {
+    fetch(API_BASE + "/wpm")
+      .then(res => res.json())
+      .then(data => {
+        const wpmList = [];
+          for(let i = 0; i < data.length; i++) {
+            wpmList.push(data[i].wpm);
+          }
+        setStats(wpmList)}
+        
+        )
+      .catch(err => console.error("Error: ", err)); 
+  } 
+  
 
   //fetching from the backend
   const getTexts = () => {
@@ -82,7 +114,7 @@ function App() {
       }
       setActiveWordIndex(index => index + 1);
       setUserInput('');
-      const word = value.trim()
+          const word = value.trim()
       setCorrectWordArray(data => {
         const newResult = [...data]
         newResult[activeWordIndex] = word === currentText[activeWordIndex];
@@ -98,6 +130,10 @@ function App() {
   function reset() {
     console.log("reset");
     getTexts();
+    getWPM();
+    
+    //console.log(stats);
+
     const index = (Math.floor(Math.random() * (text.length))); //to generate a random index
     setCurrentText(text[index].text.split(' '))
     setActiveWordIndex(0);
@@ -105,18 +141,13 @@ function App() {
     setUserInput('');
     setCorrectWordArray([]);
   }
+
         
   return (
     <div>
       <Timer startCounting = {startCounting} correctWords = {correctWordArray.filter(Boolean).length} totalWords = {correctWordArray.length} reset = {reset}></Timer>
        {/* <Form type = "text" value={userInput} onChange={(e) => processInput(e.target.value)}></Form> */}
-       <input className = "form" size="lg" type="text" placeholder="Start Typing" 
-        value={userInput} 
-        onChange={(e) => processInput(e.target.value)}/>
-
-        <button title='reset'
-          onClick={reset}>
-        </button>
+       
 
        <CardBody >{currentText.map((word, index) => {
           return <Word 
@@ -126,8 +157,22 @@ function App() {
         />
 
        })}</CardBody> 
+
+<input className = "form" size="lg" type="text" placeholder="Start Typing" 
+        value={userInput} 
+        onChange={(e) => processInput(e.target.value)}/>
+
+        <button className = "button-2" title='reset'
+          onClick={reset}>
+            reset
+        </button>
+
+     <Graph data={stats}> </Graph>
        
+
     </div>  
+
+  
         
 );
 }
