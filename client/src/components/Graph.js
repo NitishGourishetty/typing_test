@@ -69,7 +69,7 @@ import {
     }, [props.data])
     
     
-    return  <Line data={displayedData} />
+    return  <div style={{height: "750px", width: "750px"}}> <Line data={displayedData} /> </div> 
 
   }
   

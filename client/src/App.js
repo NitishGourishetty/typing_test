@@ -66,7 +66,7 @@ function App() {
       .then(res => res.json())
       .then(data => {
         const wpmList = [];
-          for(let i = 0; i < data.length; i++) {
+          for(let i = 0; i < data.length; i++) { //add accuracy another time
             wpmList.push(data[i].wpm);
           }
         setStats(wpmList)}
@@ -166,8 +166,14 @@ function App() {
           onClick={reset}>
             reset
         </button>
-
-     <Graph data={stats}> </Graph>
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}>
+       <Graph className = "form" data={stats}> </Graph>
+       </div>
+     
        
 
     </div>  
