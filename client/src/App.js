@@ -7,6 +7,7 @@ import Col from 'react-bootstrap/Col';
 import Form from './components/form';
 import Word from './components/Word'
 import Timer from './components/Timer'
+import { Button } from 'bootstrap';
 
 
 
@@ -67,7 +68,7 @@ function App() {
   function processInput(value) {
     //stopping functionality
     if(activeWordIndex === currentText.length) {
-      return;
+      return;  
     }
 
     //word count and timer
@@ -91,6 +92,17 @@ function App() {
         return newResult
       })
   } 
+
+  function reset() {
+    console.log("reset");
+    getTexts();
+    const index = (Math.floor(Math.random() * (text.length))); //to generate a random index
+    setCurrentText(text[index].text.split(' '))
+    setActiveWordIndex(0);
+    setStartCounting(false);
+    setUserInput('');
+    setCorrectWordArray([]);
+  }
         
   return (
     <div>
@@ -99,6 +111,10 @@ function App() {
        <input className = "form" size="lg" type="text" placeholder="Start Typing" 
         value={userInput} 
         onChange={(e) => processInput(e.target.value)}/>
+
+        <button title='reset'
+          onClick={reset}>
+        </button>
 
        <CardBody >{currentText.map((word, index) => {
           return <Word 

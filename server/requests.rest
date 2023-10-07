@@ -15,3 +15,11 @@ Content-Type: application/json
 {
     "text": "This is a very quick typing test"
 }
+
+### //how I add examples for now
+POST http://localhost:5001/texts
+Content-Type: application/json
+
+{
+    "text": "Nadine regarded May's wide moles and charming feet. 'I feel the same way!' revealed Nadine with a delighted grin. May looked delighted, her emotions blushing like a short, substantial sandwich. Then May came inside for a nice drink of beer."
+}
