@@ -1,21 +1,30 @@
-import React, { useEffect, useState } from 'react';
-import logo from './logo.svg';
-import { Container, AppBar, Typography, Grow, Grid} from '@material-ui/core';
-import Axios from 'axios';
+import { useState, useEffect } from 'react';
+
+const API_BASE = "http://localhost:5001"
 
 function App() {
-  const [text, setText] = useState({
-    title: "",
-    body: "",
-    author: "",
-  });
-  //setText({title:"", position:"", author:""})
+  const[text, setText] = useState([]);
+  //const[newText, setNewText] = useState(""); //potentially for adding text
+
+
+
+  useEffect(() => {
+    getTexts();
+    console.log(text);
+    
+  }, []); //on mount
+
+  const getTexts = () => {
+    fetch(API_BASE + "/texts")
+      .then(res => res.json())
+      .then(data => setText(data))
+      .catch(err => console.error("Error: ", err));
+  } 
+
+
+
   return (
-
-
     <h1>Hi</h1>
-
-
   );
 }
 

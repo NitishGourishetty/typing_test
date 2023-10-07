@@ -14,7 +14,6 @@ export const getTexts = async(req, res) => {
 
 //this is here for future purposes in case I wanted to add a feature to add their own prompts
 export const addText = (req, res) => {
-    //also for testing purposes!
     const newText = new TextModel({
         //will add other ones later if necessary
         text: req.body.text
