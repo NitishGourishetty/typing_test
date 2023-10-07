@@ -1,0 +1,7 @@
+.card {
+        width: 90%;
+        margin: 5%; /* Added */
+        float: none; /* Added */
+        margin-top: 20px; /* Added */
+        margin-bottom: 50px;
+}

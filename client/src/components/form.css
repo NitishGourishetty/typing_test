@@ -1,0 +1,8 @@
+.form {
+    width: 80%;
+    margin: 10%; /* Added */
+    float: none; /* Added */
+    margin-top: 20px; /* Added */
+    margin-bottom: 20px;
+    margin-right: 20px;
+}
