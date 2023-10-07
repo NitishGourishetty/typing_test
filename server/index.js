@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 import cors from 'cors'
 
 import textRoutes from './routes/texts.js'
+import wpmRoutes from './routes/wpm.js'
 
 const app = express();
 app.use(express.json());
@@ -19,6 +20,7 @@ app.use((req, res, next) => {
 
 //middleware /texts to have better routes
 app.use('/texts', textRoutes);
+app.use('/wpm', wpmRoutes);
 
 // setting up body parser and cors
 app.use(bodyParser.json({limit : "30mb", extended: true}));

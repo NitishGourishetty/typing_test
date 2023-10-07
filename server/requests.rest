@@ -1,6 +1,18 @@
 GET http://localhost:5001/texts
 
 ###
+GET http://localhost:5001/wpm
+
+###
+POST http://localhost:5001/wpm
+Content-Type: application/json
+
+{
+    "wpm": 60,
+    "accuracy": 50
+}
+
+###
 POST http://localhost:5001/texts
 Content-Type: application/json
 

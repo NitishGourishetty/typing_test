@@ -1,20 +1,16 @@
 import mongoose from "mongoose";
 
+//in the future add text to the schema, so users can compare WPM on specific texts
 const wpmSchema = mongoose.Schema({
-    title: {
-        type: String,
-        default: "mystery"
+    wpm: {
+        type: Number,
+        default: "mystery",
     },
-    text: {
-        type: String,
-        //required: true
-    },
-    author: {
-        type: String,
-        default: "anonymous"
+    accuracy: {
+        type: Number,
     }
 });
 
-const WPMModel = mongoose.model('TextModel', textSchema);
+const WPMModel = mongoose.model('WPMModel', wpmSchema);
 
 export default WPMModel;
