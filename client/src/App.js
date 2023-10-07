@@ -5,19 +5,40 @@ import Container from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from './components/form';
+import Word from './components/Word'
+import Timer from './components/Timer'
 
 
 
 const API_BASE = "http://localhost:5001"
 
-function App() {
+// function Word(props) {
+//   const { text, active } = props
+//   return <span >{props.text} </span>
+// }
 
+function App() {
+  //all the text from the database
   const[text, setText] = useState([{_id: '0', title: 'mystery', text: "This is a quick typing test!"}]);  //default values in case database inactive
+  //to add text for the user (coming in a different feature)
   const[newText, setNewText] = useState(""); //potentially for adding text
-  
+  //to generate a new random text to pull from the database
+  const[currentText, setCurrentText] = useState(text[0].text.split(' '));
+  //to track the users typing
+  const[userInput, setUserInput] = useState('');
+  //to monitor which word the user is on
+  const[activeWordIndex, setActiveWordIndex] = useState(0); 
+  //to check currentWords
+  const[correctWordArray, setCorrectWordArray] = useState([]);
+  //for timer
+  const[startCounting, setStartCounting] = useState(false);
+
   useEffect(() => {
       getTexts(); 
-      console.log(text);
+      const index = (Math.floor(Math.random() * (text.length))); //to generate a random index
+      setCurrentText(text[index].text.split(' '))
+      console.log(text);   
+      console.log(currentText); 
 
   }, []); //on mount 
 
@@ -43,15 +64,52 @@ function App() {
     console.log(data);
   }
 
+  function processInput(value) {
+    //stopping functionality
+    if(activeWordIndex === currentText.length) {
+      return;
+    }
+
+    //word count and timer
+    setStartCounting(true);
+
+    //check if at end
+    if(value.endsWith(' ')) { //the user has finished a word
+      if(activeWordIndex === currentText.length - 1) {
+        setStartCounting(false);
+      }
+      setActiveWordIndex(index => index + 1);
+      setUserInput('');
+    } else {
+      setUserInput(value);
+    }
+
+    const word = value.trim()
+      setCorrectWordArray(data => {
+        const newResult = [...data]
+        newResult[activeWordIndex] = word === currentText[activeWordIndex];
+        return newResult
+      })
+  } 
+        
   return (
-       <div>
-          <Form></Form>
-          <CardBody >{JSON.stringify(text[0].text)}</CardBody> 
-       </div>
-       
+    <div>
+      <Timer startCounting = {startCounting} correctWords = {correctWordArray.filter(Boolean).length}></Timer>
+       {/* <Form type = "text" value={userInput} onChange={(e) => processInput(e.target.value)}></Form> */}
+       <input className = "form" size="lg" type="text" placeholder="Start Typing" 
+        value={userInput} 
+        onChange={(e) => processInput(e.target.value)}/>
 
+       <CardBody >{currentText.map((word, index) => {
+          return <Word 
+          text = {word}
+          active={index === activeWordIndex}
+          correct = {correctWordArray[index]}
+        />
 
-  );
+       })}</CardBody> 
+    </div>  
+);
 }
 
 export default App;
