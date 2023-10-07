@@ -34,6 +34,7 @@ function App() {
   //for timer
   const[startCounting, setStartCounting] = useState(false);
 
+
   useEffect(() => {
       getTexts(); 
       const index = (Math.floor(Math.random() * (text.length))); //to generate a random index
@@ -81,16 +82,17 @@ function App() {
       }
       setActiveWordIndex(index => index + 1);
       setUserInput('');
-    } else {
-      setUserInput(value);
-    }
-
-    const word = value.trim()
+      const word = value.trim()
       setCorrectWordArray(data => {
         const newResult = [...data]
         newResult[activeWordIndex] = word === currentText[activeWordIndex];
         return newResult
       })
+    } else {
+      setUserInput(value);
+    }
+
+
   } 
 
   function reset() {
@@ -106,7 +108,7 @@ function App() {
         
   return (
     <div>
-      <Timer startCounting = {startCounting} correctWords = {correctWordArray.filter(Boolean).length}></Timer>
+      <Timer startCounting = {startCounting} correctWords = {correctWordArray.filter(Boolean).length} totalWords = {correctWordArray.length} reset = {reset}></Timer>
        {/* <Form type = "text" value={userInput} onChange={(e) => processInput(e.target.value)}></Form> */}
        <input className = "form" size="lg" type="text" placeholder="Start Typing" 
         value={userInput} 
@@ -124,7 +126,9 @@ function App() {
         />
 
        })}</CardBody> 
+       
     </div>  
+        
 );
 }
 

@@ -12,7 +12,6 @@ function Word(props) {
         return <span className="incorrect">{text} </span>
     }
 
-
     if(active) {
         return <span className="active">{text} </span>
     }
