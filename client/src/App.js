@@ -1,11 +1,21 @@
+import React, { useEffect, useState } from 'react';
 import logo from './logo.svg';
-import './App.css';
+import { Container, AppBar, Typography, Grow, Grid} from '@material-ui/core';
+import Axios from 'axios';
 
 function App() {
+  const [text, setText] = useState({
+    title: "",
+    body: "",
+    author: "",
+  });
+  //setText({title:"", position:"", author:""})
   return (
-    <div className="App">
-      <h1>Hi</h1>
-    </div>
+
+
+    <h1>Hi</h1>
+
+
   );
 }
 

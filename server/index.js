@@ -6,6 +6,7 @@ import cors from 'cors'
 import textRoutes from './routes/texts.js'
 
 const app = express();
+app.use(express.json());
 
 //middleware /texts to have better routes
 app.use('/texts', textRoutes);
@@ -16,7 +17,7 @@ app.use(bodyParser.urlencoded({limit : "30mb", extended: true}));
 app.use(cors());
 
 // mongodb integration
-const CONNECTION_URL = 'mongodb+srv://nitish:tester123@cluster0.utzfs3l.mongodb.net/?retryWrites=true&w=majority; //temporary insecure credentials, make environmental variables later'
+const CONNECTION_URL = 'mongodb+srv://nitish:tester123@cluster0.utzfs3l.mongodb.net/?retryWrites=true&w=majority'; //temporary insecure credentials, make environmental variables later
 const PORT = process.env.PORT || 5001;
 
 mongoose.connect(CONNECTION_URL, {useNewURLParser : true, useUnifiedTopology: true})

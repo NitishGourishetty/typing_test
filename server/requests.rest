@@ -1,0 +1,17 @@
+GET http://localhost:5001/texts
+
+###
+POST http://localhost:5001/texts
+Content-Type: application/json
+
+{
+    "text": "What would you do if you knew there were rude robots with shocking habits near the ones you love? The night of the wedding changes everything for Naomi Lakeman, an eight-year-old painter from Plymouth. One moment, she is discussing dice with her gracious nephew, Brad Barker; the next, watching with horror as rude robots attack each other. She knows these robots came from Bangkok but she can't prove it - at least not without some spotty bananas."
+}
+
+###
+POST http://localhost:5001/texts
+Content-Type: application/json
+
+{
+    "text": "This is a very quick typing test"
+}

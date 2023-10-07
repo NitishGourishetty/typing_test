@@ -1,6 +1,5 @@
 import { response } from "express";
 import TextModel from "../models/textModel.js";
-import textModel from "../models/textModel.js";
 
 //allows for more readable code if I need to expand in the future
 export const getTexts = async(req, res) => {
@@ -13,11 +12,18 @@ export const getTexts = async(req, res) => {
     }
 }
 
+//this is here for future purposes in case I wanted to add a feature to add their own prompts
 export const addText = (req, res) => {
-    const body = req.body;
-    const newPost = new TextModel(message);
-        
+    //also for testing purposes!
+    const newText = new TextModel({
+        //will add other ones later if necessary
+        text: req.body.text
+    });
+
+    try {
+        newText.save();
+       res.status(201).json(newText)
     } catch (error) {
-        
+        res.status(409).json({message: error.message});
     }
 }
