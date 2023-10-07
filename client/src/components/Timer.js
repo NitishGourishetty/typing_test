@@ -57,8 +57,9 @@ function Timer(props) {
     
     
     return <div>
-        <p>Time: {timeElapsed}</p>
-        <p>Speed: {currSpeed} WPM</p>
+        <h3>Time: {timeElapsed}</h3>
+        <h3>Speed: {currSpeed} WPM</h3>
+        <h3>Accuracy: {Math.floor((props.correctWords / props.totalWords) * 100)}%</h3>
     </div>
     
     

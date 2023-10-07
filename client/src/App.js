@@ -142,10 +142,24 @@ function App() {
     setCorrectWordArray([]);
   }
 
+  function calculateAverageWPM() {
+    let sum = 0;
+        for(let i = 0; i < stats.length; i++) {
+          sum += stats[i];
+        }
+      return Math.floor(sum/stats.length);
+  }
+
         
   return (
     <div>
+      <CardBody>
       <Timer startCounting = {startCounting} correctWords = {correctWordArray.filter(Boolean).length} totalWords = {correctWordArray.length} reset = {reset}></Timer>
+      <h3>All Attempts Average WPM: { 
+        calculateAverageWPM()
+      } </h3>
+      </CardBody>
+      
        {/* <Form type = "text" value={userInput} onChange={(e) => processInput(e.target.value)}></Form> */}
        
 

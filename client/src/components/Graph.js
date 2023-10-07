@@ -27,19 +27,9 @@ import {
     
 
   const API_BASE = "http://localhost:5001"
-  const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+  let labels = [];
+ 
   
-  export const data = {
-    // labels,
-    datasets: [
-      {
-        label: 'Average WPM',
-        data: [],
-        borderColor: 'rgb(255, 99, 132)',
-        backgroundColor: 'rgba(255, 99, 132, 0.5)',
-      },
-    ],
-  };
   
   export default function Graph(props) {
     let displayedData = {
@@ -55,6 +45,7 @@ import {
     }
     //console.log(displayedData);
     useEffect(() => {
+            labels.push(" ");
         displayedData = {
             labels,
             datasets: [
