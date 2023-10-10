@@ -33,20 +33,22 @@ import {
   
   export default function Graph(props) {
     let displayedData = {
-        labels,
-        datasets: [
-            {
-              label: 'Average WPM',
-              data: props.data,
-              borderColor: 'rgb(255, 99, 132)',
-              backgroundColor: 'rgba(255, 99, 132, 0.5)',
-            },
-          ],
-    }
+      labels,
+      datasets: [
+          {
+            label: 'Average WPM',
+            data: props.data,
+            borderColor: 'rgb(255, 99, 132)',
+            backgroundColor: 'rgba(255, 99, 132, 0.5)',
+          },
+        ],
+  }
+    const [data, setData] = useState(displayedData)
+   
     //console.log(displayedData);
     useEffect(() => {
-            labels.push(" ");
-        displayedData = {
+        labels.push(" ");
+        setData( {
             labels,
             datasets: [
                 {
@@ -56,11 +58,11 @@ import {
                   backgroundColor: 'rgba(255, 99, 132, 0.5)',
                 },
               ],
-        }
+        })
     }, [props.data])
     
     
-    return  <div style={{height: "750px", width: "750px"}}> <Line data={displayedData} /> </div> 
+    return  <div style={{height: "750px", width: "750px"}}> <Line data={data} /> </div> 
 
   }
   
