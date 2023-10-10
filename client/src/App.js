@@ -30,7 +30,7 @@ function App() {
   const[startCounting, setStartCounting] = useState(false);
   //wpm states
   const[stats, setStats] = useState([80, 90, 90, 100, 40, 30, 100]);
-
+  //average WPM display
   const[avgWPM, setAvgWPM] = useState(75);
 
   let data = {
@@ -70,7 +70,6 @@ function App() {
       .catch(err => console.error("Error: ", err)); 
   } 
   
-
   //fetching from the backend
   const getTexts = () => {
     fetch(API_BASE + "/texts")

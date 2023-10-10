@@ -28,16 +28,17 @@ import {
 
   const API_BASE = "http://localhost:5001"
   let labels = [];
+  for(let i = 0; i< 50; i++) {
+    labels.push(" ");
+  } 
  
-  
-  
   export default function Graph(props) {
     let displayedData = {
       labels,
       datasets: [
           {
             label: 'Average WPM',
-            data: props.data,
+            data: props.data.slice(-50),
             borderColor: 'rgb(255, 99, 132)',
             backgroundColor: 'rgba(255, 99, 132, 0.5)',
           },
@@ -57,7 +58,7 @@ import {
             datasets: [
                 {
                   label: 'Average WPM',
-                  data: props.data.slice(-50),
+                  data: props.data,
                   borderColor: 'rgb(255, 99, 132)',
                   backgroundColor: 'rgba(255, 99, 132, 0.5)',
                 },
