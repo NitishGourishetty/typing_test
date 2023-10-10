@@ -47,19 +47,23 @@ import {
    
     //console.log(displayedData);
     useEffect(() => {
+      labels = [];
+      for(let i = props.data.length-50; i< props.data.length; i++) {
         labels.push(" ");
+      } 
+      console.log("in use!!!")
         setData( {
             labels,
             datasets: [
                 {
                   label: 'Average WPM',
-                  data: props.data,
+                  data: props.data.slice(-50),
                   borderColor: 'rgb(255, 99, 132)',
                   backgroundColor: 'rgba(255, 99, 132, 0.5)',
                 },
               ],
         })
-    }, [props.data])
+    }, [props.startCounting])
     
     
     return  <div style={{height: "750px", width: "750px"}}> <Line data={data} /> </div> 

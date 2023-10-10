@@ -31,6 +31,8 @@ function App() {
   //wpm states
   const[stats, setStats] = useState([80, 90, 90, 100, 40, 30, 100]);
 
+  const[avgWPM, setAvgWPM] = useState(75);
+
   let data = {
     // labels,
     datasets: [
@@ -46,6 +48,7 @@ function App() {
   useEffect(() => {
       getTexts(); 
       getWPM();
+      setAvgWPM(calculateAverageWPM());
       const index = (Math.floor(Math.random() * (text.length))); //to generate a random index
       setCurrentText(text[index].text.split(' '))
       console.log(text);   
@@ -121,6 +124,7 @@ function App() {
     console.log("reset");
     getTexts();
     getWPM();
+    setAvgWPM(calculateAverageWPM());
     
     const index = (Math.floor(Math.random() * (text.length))); //to generate a random index
     setCurrentText(text[index].text.split(' '))
@@ -143,7 +147,7 @@ function App() {
       <CardBody>
       <Timer startCounting = {startCounting} correctWords = {correctWordArray.filter(Boolean).length} totalWords = {correctWordArray.length} reset = {reset}></Timer>
       <h3>All Attempts Average WPM: { 
-        calculateAverageWPM() //change this to a state probably
+        avgWPM //change this to a state probably
       } </h3>
       </CardBody>
        {/* <Form type = "text" value={userInput} onChange={(e) => processInput(e.target.value)}></Form> */}
@@ -168,7 +172,7 @@ function App() {
           alignItems: 'center',
           justifyContent: 'center',
         }}>
-       <Graph className = "form" data={stats}> </Graph>
+       <Graph startCounting = {startCounting} className = "form" data={stats}> </Graph>
        </div>
     </div>      
 );
