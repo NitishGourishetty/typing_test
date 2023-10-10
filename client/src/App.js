@@ -11,15 +11,7 @@ import { Button } from 'bootstrap';
 import './App.css'
 import Graph from './components/Graph';
 
-
-
 const API_BASE = "http://localhost:5001"
-
-
-// function Word(props) {
-//   const { text, active } = props
-//   return <span >{props.text} </span>
-// }
 
 function App() {
   //all the text from the database
@@ -123,8 +115,6 @@ function App() {
     } else {
       setUserInput(value);
     }
-
-
   } 
 
   function reset() {
@@ -132,8 +122,6 @@ function App() {
     getTexts();
     getWPM();
     
-    //console.log(stats);
-
     const index = (Math.floor(Math.random() * (text.length))); //to generate a random index
     setCurrentText(text[index].text.split(' '))
     setActiveWordIndex(0);
@@ -150,19 +138,15 @@ function App() {
       return Math.floor(sum/stats.length);
   }
 
-        
   return (
     <div>
       <CardBody>
       <Timer startCounting = {startCounting} correctWords = {correctWordArray.filter(Boolean).length} totalWords = {correctWordArray.length} reset = {reset}></Timer>
       <h3>All Attempts Average WPM: { 
-        calculateAverageWPM()
+        calculateAverageWPM() //change this to a state probably
       } </h3>
       </CardBody>
-      
        {/* <Form type = "text" value={userInput} onChange={(e) => processInput(e.target.value)}></Form> */}
-       
-
        <CardBody >{currentText.map((word, index) => {
           return <Word 
           text = {word}
@@ -175,7 +159,6 @@ function App() {
 <input className = "form" size="lg" type="text" placeholder="Start Typing" 
         value={userInput} 
         onChange={(e) => processInput(e.target.value)}/>
-
         <button className = "button-2" title='reset'
           onClick={reset}>
             reset
@@ -187,13 +170,7 @@ function App() {
         }}>
        <Graph className = "form" data={stats}> </Graph>
        </div>
-     
-       
-
-    </div>  
-
-  
-        
+    </div>      
 );
 }
 
